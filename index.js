@@ -61,7 +61,7 @@ fadingCarousel.prototype.goto = function(i) {
 	var el = this.active = this.list[i];
 	el.className += ' visible';
 
-	this.emit('index', i);
+	this.emit('indexChanged', i);
 	
 	this.currentIndex = i; 
 	return this; 

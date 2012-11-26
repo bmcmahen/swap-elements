@@ -1,6 +1,6 @@
 {
-  "name": "fadeCarousel",
-  "repo": "bmcmahen/fadeCarousel",
+  "name": "swap-elements",
+  "repo": "bmcmahen/swap-elements",
   "description": "takes a list of dom elements and swaps their classes to display one at a time",
   "version": "0.0.1",
   "keywords": [],

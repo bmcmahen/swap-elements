@@ -1,0 +1,15 @@
+{
+  "name": "fadeCarousel",
+  "repo": "bmcmahen/fadeCarousel",
+  "description": "takes a list of dom elements and swaps their classes to display one at a time",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {
+  		"component/emitter": "*"
+  	},
+  "development": {},
+  "license": "MIT",
+  "scripts": [
+    "index.js"
+  ]
+}

@@ -30,27 +30,23 @@ fadingCarousel.prototype.stop = function(){
 	return this; 
 }
 
+fadingCarousel.prototype.isFirst = function(){
+	return this.currentIndex === 0; 
+}
+
+fadingCarousel.prototype.isLast = function(){
+	return this.current === this.total - 1; 
+}
+
 fadingCarousel.prototype.next = function(){
-	var nextIndex = this.currentIndex + 1 === this.length ? 
-			0 : 
-			this.currentIndex + 1; 
-
+	var nextIndex = this.isLast() ? 0 : this.currentIndex + 1;
 	this.emit('next');
-
 	this.goto(nextIndex);
 };
 
 fadingCarousel.prototype.prev = function(){
-	var prev;
-
-	if ((this.currentIndex - 1) < 0) {
-		prev = this.length - 1; 
-	} else {
-		prev = this.currentIndex - 1; 
-	}
-
+	var prev = this.isFirst() ? this.length - 1 : this.currentIndex - 1;
 	this.emit('prev');
-
 	this.goto(prev);
 	return this; 
 };

@@ -16,16 +16,18 @@ var fadingCarousel = function(selector) {
 
 fadingCarousel.prototype = new Emitter; 
 
-fadingCarousel.prototype.play = function(){
+fadingCarousel.prototype.play = function(duration){
 	if (this.timer)
 		return
-	this.timer = setInterval(this.next(), self.duration);
+
+	duration = duration || self.duration; 
+	this.timer = window.setInterval(self.next(), duration);
 	this.emit('play');
 	return this; 
 };
 
 fadingCarousel.prototype.stop = function(){
-	clearInterval(this.timer);
+	window.clearInterval(this.timer);
 	this.emit('stop');
 	return this; 
 }
@@ -39,6 +41,7 @@ fadingCarousel.prototype.isLast = function(){
 }
 
 fadingCarousel.prototype.next = function(){
+	console.log('next called');
 	var nextIndex = this.isLast() ? 0 : this.currentIndex + 1;
 	this.emit('next');
 	this.goto(nextIndex);

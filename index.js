@@ -1,6 +1,5 @@
 
 var Emitter = require('emitter');
-var event = require('event');
 
 module.exports = function(selector, options){
 	return new swapElements(selector);
@@ -19,17 +18,20 @@ var swapElements = function(selector) {
 swapElements.prototype = new Emitter; 
 
 swapElements.prototype.play = function(duration){
-	if (this.timer)
+	var self = this; 
+	if (self.timer)
 		return
 
-	duration = duration || this.duration; 
-	this.timer = setInterval(this.next.bind(this), duration);
-	this.emit('play');
+	duration = duration || self.duration; 
+	self.timer = window.setInterval(function(){
+		self.next();
+	}, duration);
+	self.emit('play');
 	return this; 
 };
 
 swapElements.prototype.stop = function(){
-	clearInterval(this.timer);
+	window.clearInterval(this.timer);
 	this.emit('stop');
 	return this; 
 }

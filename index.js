@@ -1,21 +1,26 @@
+// animate carousel
+// 
+// XXX - to do: allow user to set initially displayed div. 
 
-var Emitter = require('emitter');
+var Emitter = require('emitter')
+	, classes = require('classes');
 
 module.exports = function(selector, options){
-	return new swapElements(selector);
+	options || (options = {});
+	return new swapElements(selector, options);
 }
 
-var swapElements = function(selector) {
+var swapElements = function(selector, options) {
 	Emitter.call(this);
 	this.list = document.querySelectorAll(selector);
 	this.length = this.list.length; 
-	this.currentIndex = 0; 
+	this.currentIndex = options.startIndex || 0;
 	this.active = this.list[this.currentIndex];
-	this.active.className = this.active.className += ' visible';
+	classes(this.active).add('active');
 	this.duration = 7000; 
 }
 
-swapElements.prototype = new Emitter; 
+swapElements.prototype = new Emitter(); 
 
 swapElements.prototype.play = function(duration){
 	var self = this; 
@@ -58,13 +63,36 @@ swapElements.prototype.prev = function(){
 };
 
 swapElements.prototype.goto = function(i) {
-	this.active.className = this.active.className.replace( /(?:^|\s)visible(?!\S)/g , '' )
-	
-	var el = this.active = this.list[i];
-	el.className += ' visible';
 
-	this.emit('indexChanged', i);
+	var self = this
+		, prevElement = self.active; 
+
+	// if we are moving forward, then add a 'left' class to the element
+	// otherwise, add a 'right' class
+	var direction = self.currentIndex < i ? 'left' : 'right';
+	classes(prevElement).add(direction);
+
+	// after the animation has finished, remove the active tag. 
+	setTimeout(function() {
+		classes(prevElement).remove('active').remove(direction);
+	}, 1000);
+
+	// for the new div, add 'next' and 'left' and after a set duration, remove them
+	// and add active
 	
-	this.currentIndex = i; 
+	var el = self.active = self.list[i]
+		, side = (direction === 'left') ? 'next' : 'prev';
+
+	classes(el).add(side);
+	el.offsetWidth; // force reflow to get slide-in animation working
+	classes(el).add(direction);
+
+	setTimeout(function() { 
+		classes(el).remove(direction).remove(side).add('active');
+	}, 1000);
+
+	self.emit('indexChanged', i);
+	
+	self.currentIndex = i; 
 	return this; 
 };

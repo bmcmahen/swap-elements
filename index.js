@@ -67,6 +67,9 @@ swapElements.prototype.goto = function(i) {
 	var self = this
 		, prevElement = self.active; 
 
+	if (self.currentIndex === i)
+		return
+
 	// if we are moving forward, then add a 'left' class to the element
 	// otherwise, add a 'right' class
 	var direction = self.currentIndex < i ? 'left' : 'right';

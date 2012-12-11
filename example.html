@@ -30,6 +30,8 @@
 .carousel .item > img {
   display: block;
   line-height: 1;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .carousel .active,
@@ -86,7 +88,7 @@
     <script src="build/build.js"></script>
     <script>
       var swap = require('swap-elements');
-      window.tester = swap('.item', {startIndex: 2}).play(6000);
+      window.tester = swap('.item', {startIndex: 2});
       
     </script>
   </body>

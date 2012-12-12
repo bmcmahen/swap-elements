@@ -1,6 +1,4 @@
 // animate carousel
-// 
-// XXX - to do: allow user to set initially displayed div. 
 
 var Emitter = require('emitter')
 	, classes = require('classes');
@@ -17,6 +15,7 @@ var swapElements = function(selector, options) {
 	this.currentIndex = options.startIndex || 0;
 	this.active = this.list[this.currentIndex];
 	classes(this.active).add('active');
+	this.animationDuration = options.animationDuration || 600;
 	this.duration = 7000; 
 }
 
@@ -78,7 +77,7 @@ swapElements.prototype.goto = function(i) {
 	// after the animation has finished, remove the active tag. 
 	setTimeout(function() {
 		classes(prevElement).remove('active').remove(direction);
-	}, 600);
+	}, self.animationDuration);
 
 	// for the new div, add 'next' and 'left' and after a set duration, remove them
 	// and add active
@@ -92,7 +91,7 @@ swapElements.prototype.goto = function(i) {
 
 	setTimeout(function() { 
 		classes(el).remove(direction).remove(side).add('active');
-	}, 600);
+	}, self.animationDuration);
 
 	self.emit('indexChanged', i);
 	

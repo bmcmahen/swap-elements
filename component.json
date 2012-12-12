@@ -6,7 +6,8 @@
   "keywords": [],
   "dependencies": {
     "component/emitter": "*",
-    "component/classes": "*"
+    "component/classes": "*",
+    ".": "*"
   },
   "development": {},
   "license": "MIT",

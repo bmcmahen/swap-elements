@@ -78,7 +78,7 @@ swapElements.prototype.goto = function(i) {
 	// after the animation has finished, remove the active tag. 
 	setTimeout(function() {
 		classes(prevElement).remove('active').remove(direction);
-	}, 1000);
+	}, 600);
 
 	// for the new div, add 'next' and 'left' and after a set duration, remove them
 	// and add active
@@ -92,7 +92,7 @@ swapElements.prototype.goto = function(i) {
 
 	setTimeout(function() { 
 		classes(el).remove(direction).remove(side).add('active');
-	}, 1000);
+	}, 600);
 
 	self.emit('indexChanged', i);
 	
